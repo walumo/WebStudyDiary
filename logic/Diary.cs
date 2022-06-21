@@ -9,29 +9,30 @@ namespace StudyDiary
     {
         public static void ShowTopics(IQueryable<Topic> list)
         {
-            Console.Clear();
-            Console.BackgroundColor = ConsoleColor.DarkBlue;
-            Console.WriteLine("YOUR TOPICS:");
-            Console.BackgroundColor = ConsoleColor.Black;
 
-            if (list.Count() < 1) Console.WriteLine("No topics in your list.\n");
+            //Console.Clear();
+            //Console.BackgroundColor = ConsoleColor.DarkBlue;
+            //Console.WriteLine("YOUR TOPICS:");
+            //Console.BackgroundColor = ConsoleColor.Black;
 
-            foreach (Topic topic in list)
-            {
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("Topic number: {0}", topic.TopicId);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("****************");
-                Console.Write($"Topic: "); 
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine(topic.TopicTitle.ToUpper());
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine($"To master (hours): {topic.TopicEstimatedTimeToMaster}");
-                Console.WriteLine($"Date to be completed: {topic.TopicCompletionDate}");
-                Console.WriteLine("Time until completion: {0}",(topic.TopicCompletionDate-DateTime.Now)); 
-                Console.WriteLine("Hours spent: {0}", topic.TopicTimeSpent);
-                Console.WriteLine("----------------");
-                Console.WriteLine("Description: {0}\n", topic.TopicDescription);
+            //if (list.Count() < 1) Console.WriteLine("No topics in your list.\n");
+
+            //foreach (Topic topic in list)
+            //{
+            //    Console.ForegroundColor = ConsoleColor.Blue;
+            //    Console.WriteLine("Topic number: {0}", topic.TopicId);
+            //    Console.ForegroundColor = ConsoleColor.White;
+            //    Console.WriteLine("****************");
+            //    Console.Write($"Topic: "); 
+            //    Console.ForegroundColor = ConsoleColor.Blue;
+            //    Console.WriteLine(topic.TopicTitle.ToUpper());
+            //    Console.ForegroundColor = ConsoleColor.White;
+            //    Console.WriteLine($"To master (hours): {topic.TopicEstimatedTimeToMaster}");
+            //    Console.WriteLine($"Date to be completed: {topic.TopicCompletionDate}");
+            //    Console.WriteLine("Time until completion: {0}",(topic.TopicCompletionDate-DateTime.Now)); 
+            //    Console.WriteLine("Hours spent: {0}", topic.TopicTimeSpent);
+            //    Console.WriteLine("----------------");
+            //    Console.WriteLine("Description: {0}\n", topic.TopicDescription);
                 
                 //if (topic.Tasks.NotesList.Count() > 0)
                 //{
@@ -46,10 +47,10 @@ namespace StudyDiary
                 //    }
                 //}
                 
-                Console.WriteLine("\nSource(s) used: {0}\n", topic.TopicSource);
-            }
-            Console.Write("Press enter to continue...");
-            Console.ReadKey();
+            //    Console.WriteLine("\nSource(s) used: {0}\n", topic.TopicSource);
+            //}
+            //Console.Write("Press enter to continue...");
+            //Console.ReadKey();
         }
 
         //public static void ShowTopics(Topic topic)

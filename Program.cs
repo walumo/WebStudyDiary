@@ -11,30 +11,7 @@ namespace StudyDiary
     {
         static void Main(string[] args)
         {
-            IQueryable<Topic> myTopics = null;
-            try
-            {
-                myTopics = Load.GetTopics();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                throw;
-            }
-            
             int option;
-
-            //List<Topic> myTopics = new List<Topic>();
-
-            //try
-            //{
-            //    if (File.Exists(Environment.CurrentDirectory + @"\topics\topic.txt")) myTopics = Load.LoadAll();
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.Write("Could not load file: " + ex.Message);
-            //    Console.ReadKey();
-            //}
 
             while (true)
             {
@@ -78,7 +55,7 @@ namespace StudyDiary
                         //myTopics.Add(Diary.NewTopic(myTopics));
                         break;
                     case 2:
-                        Diary.ShowTopics(myTopics);
+                        Load.GetTopics();
                         break;
                     case 3:
                         int topicIndex;
