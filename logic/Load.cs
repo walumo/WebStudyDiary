@@ -129,7 +129,7 @@ namespace StudyDiary
                 {
                     foreach (Note note in notesFromDb)
                     {
-                        Console.WriteLine("- {0}", note.NoteString);
+                        Console.WriteLine("- {0}", note.Note1);
                     }
                 }
             }

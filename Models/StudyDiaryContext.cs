@@ -38,7 +38,7 @@ namespace WebStudyDiary.Models
             {
                 entity.ToTable("Note");
 
-                entity.Property(e => e.NoteString)
+                entity.Property(e => e.Note1)
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("Note");
@@ -83,8 +83,6 @@ namespace WebStudyDiary.Models
 
                 entity.Property(e => e.TopicId).HasColumnName("Topic_ID");
 
-                entity.Property(e => e.TopicCompletionDate).HasColumnType("datetime");
-
                 entity.Property(e => e.TopicDescription)
                     .HasMaxLength(255)
                     .IsUnicode(false);
@@ -92,8 +90,6 @@ namespace WebStudyDiary.Models
                 entity.Property(e => e.TopicSource)
                     .HasMaxLength(255)
                     .IsUnicode(false);
-
-                entity.Property(e => e.TopicStartLearningDate).HasColumnType("datetime");
 
                 entity.Property(e => e.TopicTitle)
                     .HasMaxLength(255)

@@ -52,7 +52,7 @@ namespace StudyDiary
                 switch (option)
                 {
                     case 1:
-                        //myTopics.Add(Diary.NewTopic(myTopics));
+                        Diary.NewTopic();
                         break;
                     case 2:
                         Load.GetTopics();
