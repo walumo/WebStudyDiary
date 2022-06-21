@@ -7,92 +7,6 @@ namespace StudyDiary
 {
     static class Diary
     {
-        public static void ShowTopics(IQueryable<Topic> list)
-        {
-
-            //Console.Clear();
-            //Console.BackgroundColor = ConsoleColor.DarkBlue;
-            //Console.WriteLine("YOUR TOPICS:");
-            //Console.BackgroundColor = ConsoleColor.Black;
-
-            //if (list.Count() < 1) Console.WriteLine("No topics in your list.\n");
-
-            //foreach (Topic topic in list)
-            //{
-            //    Console.ForegroundColor = ConsoleColor.Blue;
-            //    Console.WriteLine("Topic number: {0}", topic.TopicId);
-            //    Console.ForegroundColor = ConsoleColor.White;
-            //    Console.WriteLine("****************");
-            //    Console.Write($"Topic: "); 
-            //    Console.ForegroundColor = ConsoleColor.Blue;
-            //    Console.WriteLine(topic.TopicTitle.ToUpper());
-            //    Console.ForegroundColor = ConsoleColor.White;
-            //    Console.WriteLine($"To master (hours): {topic.TopicEstimatedTimeToMaster}");
-            //    Console.WriteLine($"Date to be completed: {topic.TopicCompletionDate}");
-            //    Console.WriteLine("Time until completion: {0}",(topic.TopicCompletionDate-DateTime.Now)); 
-            //    Console.WriteLine("Hours spent: {0}", topic.TopicTimeSpent);
-            //    Console.WriteLine("----------------");
-            //    Console.WriteLine("Description: {0}\n", topic.TopicDescription);
-                
-                //if (topic.Tasks.NotesList.Count() > 0)
-                //{
-                //    Console.WriteLine("Tasks: \n");
-                //    Console.ForegroundColor = ConsoleColor.DarkCyan;
-                //    Console.Write(topic.Tasks.Title.ToUpper());
-                //    Console.WriteLine(" || Priority: {0}", topic.Tasks.PriorityProperty);
-                //    Console.ForegroundColor = ConsoleColor.White;
-                //    foreach (string note in topic.Tasks.Notes)
-                //    {
-                //        Console.WriteLine("- {0}", note);
-                //    }
-                //}
-                
-            //    Console.WriteLine("\nSource(s) used: {0}\n", topic.TopicSource);
-            //}
-            //Console.Write("Press enter to continue...");
-            //Console.ReadKey();
-        }
-
-        //public static void ShowTopics(Topic topic)
-        //{
-        //    Console.Clear();
-        //    Console.BackgroundColor = ConsoleColor.DarkBlue;
-        //    Console.WriteLine("YOUR TOPICS:");
-        //    Console.BackgroundColor = ConsoleColor.Black;
-
-        //    Console.ForegroundColor = ConsoleColor.Blue;
-        //    Console.WriteLine("Topic number: {0}", topic.Id);
-        //    Console.ForegroundColor = ConsoleColor.White;
-        //    Console.WriteLine("****************");
-        //    Console.Write($"Topic: "); 
-        //    Console.ForegroundColor = ConsoleColor.Blue;
-        //    Console.WriteLine(topic.Title.ToUpper());
-        //    Console.ForegroundColor = ConsoleColor.White;
-        //    Console.WriteLine($"To master (hours): {topic.EstimatedTimeToMaster}");
-        //    Console.WriteLine($"Date to be completed: {topic.CompletionDate}");
-        //    Console.WriteLine("Time until completion: {0} days, {1} hours, {2} minutes",
-        //        (topic.CompletionDate - DateTime.Now).Days,
-        //        (topic.CompletionDate - DateTime.Now).Hours,
-        //        (topic.CompletionDate - DateTime.Now).Minutes);
-        //    Console.WriteLine("Hours spent: {0}", topic.TimeSpent);
-        //    Console.WriteLine("----------------");
-        //    Console.WriteLine("Description: {0}\n", topic.Description);
-
-        //    Console.WriteLine("Tasks: \n");
-        //    Console.ForegroundColor = ConsoleColor.DarkCyan;
-        //    Console.Write(topic.Tasks.Title.ToUpper());
-        //    Console.WriteLine(" || Priority: {0}", topic.Tasks.PriorityProperty);
-        //    Console.ForegroundColor = ConsoleColor.White;
-        //    foreach (string note in topic.Tasks.Notes)
-        //    {
-        //        Console.WriteLine("- {0}", note);
-        //    }
-        //    Console.WriteLine("\nSource(s) used: {0}\n", topic.Source);
-
-        //    Console.Write("Press enter to continue...");
-        //    Console.ReadKey();
-
-        //}
         public static void NewTopic()
         {
             Topic buffer = new Topic();
@@ -184,77 +98,120 @@ namespace StudyDiary
                 db.SaveChanges();
             }
         }
-        // Add tasks
-        //public static Task NewTask(int taskCount)
-        //{
-        //    Task buffer = new Task();
-        //    buffer.Id = taskCount + 1;
+        public static void NewTask()
+        {
+            Task buffer = new Task();
+            string topicIndex;
+            using (StudyDiaryContext db = new StudyDiaryContext())
+            {
+                var topics = db.Topics.Select(x => x);
+                var tIndex = from topic in topics select topic.TopicId;
 
-        //    Console.Clear();
-        //    Console.Write("Give a title for task: ");
-        //    buffer.Title = Console.ReadLine();
+                Console.Clear();
+                Console.BackgroundColor = ConsoleColor.DarkBlue;
+                Console.WriteLine("TOPICS: ");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.WriteLine("---------");
 
-        //    while (true)
-        //    {
-        //        try
-        //        {
-        //            Console.Write("Priority for this task(1=high, 2=medium, 3=low); ");
-        //            string str = Console.ReadLine();
-        //            if (!String.IsNullOrWhiteSpace(str) || int.TryParse(str, out int result)) { buffer.PriorityProperty = (TaskPriority)Convert.ToInt32(str) - 1; break; }
-        //            else buffer.PriorityProperty = TaskPriority.Low;
-        //            break;
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            Console.WriteLine(e.Message);
-        //            Console.WriteLine("Something went wrong, try again");
-        //        }
-        //    }
+                foreach (Topic topic in topics)
+                {
+                    Console.WriteLine("{0}. {1}", topic.TopicId, topic.TopicTitle);
+                }
 
-        //    buffer.Done = false;
+                Console.WriteLine("Choose a topic to add notes to (blank to return): ");
 
-        //    while (true)
-        //    {
-        //        try
-        //        {
-        //            Console.Write("Enter notes for this task (blank note to move on): ");
-        //            string str = Console.ReadLine();
-        //            if (String.IsNullOrWhiteSpace(str)) break;
-        //            else buffer.NotesList.Add(str);
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            Console.WriteLine(e.Message);
-        //            Console.WriteLine("Something went wrong, try again");
-        //            Console.ReadKey();
-        //        }
-        //    }
+                Console.Write("\nYour selection: ");
+                topicIndex = Console.ReadLine();
+                if (String.IsNullOrWhiteSpace(topicIndex) || !tIndex.Contains(Convert.ToInt32(topicIndex))) return;
+            }
 
-        //    while (true)
-        //    {
-        //        try
-        //        {
-        //            Console.Write("Enter date for completion (dd.mm.yyyy): ");
-        //            string str = Console.ReadLine();
-        //            if (String.IsNullOrWhiteSpace(str)) { buffer.Deadline = new DateTime(DateTime.Now.Year + 1, 1, 1); break; }
-        //            else
-        //            {
-        //                string[] dtParser = new string[3];
-        //                dtParser = str.Split('.');
-        //                buffer.Deadline = new DateTime(Convert.ToInt32(dtParser[2]), Convert.ToInt32(dtParser[1]), Convert.ToInt32(dtParser[0]));
-        //            }
-        //            break;
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            Console.WriteLine(e.Message);
-        //            Console.WriteLine("Something went wrong, try again");
-        //            Console.ReadKey();
-        //        }
-        //    }
-        //    Console.Write("Press enter to continue...");
-        //    Console.ReadKey();
-        //    Console.Clear();
-        //}
+            using (StudyDiaryContext db = new StudyDiaryContext())
+            {
+
+                buffer.TopicId = Convert.ToInt32(topicIndex);
+
+                Console.Clear();
+                Console.Write("Give a title for task: ");
+                buffer.TaskTitle = Console.ReadLine();
+
+                while (true)
+                {
+                    try
+                    {
+                        Console.Write("Priority for this task(1=high, 2=medium, 3=low); ");
+                        string str = Console.ReadLine();
+                        if (!String.IsNullOrWhiteSpace(str) || int.TryParse(str, out int result)) { buffer.TaskPriority = Convert.ToInt32(str); break; }
+                        else buffer.TaskPriority = 3;
+                        break;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine("Something went wrong, try again");
+                    }
+                }
+
+                buffer.TaskDone = false;
+                
+                while (true)
+                {
+                    try
+                    {
+                        Console.Write("Enter date for completion (dd.mm.yyyy): ");
+                        string str = Console.ReadLine();
+                        if (String.IsNullOrWhiteSpace(str)) { buffer.TaskDeadline = new DateTime(DateTime.Now.Year + 1, 1, 1); break; }
+                        else
+                        {
+                            string[] dtParser = new string[3];
+                            dtParser = str.Split('.');
+                            buffer.TaskDeadline = new DateTime(Convert.ToInt32(dtParser[2]), Convert.ToInt32(dtParser[1]), Convert.ToInt32(dtParser[0]));
+                        }
+                        break;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine("Something went wrong, try again");
+                        Console.ReadKey();
+                    }
+                }
+                db.Tasks.Add(buffer);
+                db.SaveChanges();
+                AddNotes();
+                
+                Console.Write("Press enter to continue...");
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
+        private static void AddNotes()
+        {
+            while (true)
+            {
+                Note newNote = new Note();
+                using (StudyDiaryContext db = new StudyDiaryContext())
+                {
+                    try
+                    {
+                        newNote.TaskId = (from task in db.Tasks orderby task.TaskId select task.TaskId).Last();
+                        Console.Write("Enter notes for this task (blank note to move on): ");
+                        string str = Console.ReadLine();
+                        if (String.IsNullOrWhiteSpace(str)) break;
+                        else
+                        {
+                            newNote.Note1 = str;
+                            db.Notes.Add(newNote);
+                            db.SaveChanges();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine("Something went wrong, try again");
+                        Console.ReadKey();
+                    } 
+                }
+            }
+        }
     }
 }

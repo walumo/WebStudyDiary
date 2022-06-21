@@ -23,12 +23,12 @@ namespace StudyDiary
                 Console.WriteLine("\nOptions:");
                 Console.WriteLine("1) Enter new topic");
                 Console.WriteLine("2) List your topics");
-                Console.WriteLine("3) Add notes to topics");
+                Console.WriteLine("3) Add tasks to topics");
                 Console.WriteLine("4) Search");
                 Console.WriteLine("5) Delete topics");
                 Console.WriteLine("6) Update topics");
                 Console.WriteLine("7) Clean expired topics");
-                Console.WriteLine("8) Manage notes");
+                Console.WriteLine("8) Manage tasks");
                 Console.WriteLine("9) Save & exit\n");
                 Console.Write("Your selection: ");
 
@@ -58,33 +58,7 @@ namespace StudyDiary
                         Load.GetTopics();
                         break;
                     case 3:
-                        int topicIndex;
-                        Console.Clear();
-                        Console.BackgroundColor = ConsoleColor.DarkBlue;
-                        Console.WriteLine("TOPICS: ");
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.WriteLine("---------");
-                        Console.WriteLine("Choose a topic to add notes to: ");
-                        //foreach (Topic topic in myTopics)
-                        //{
-                        //    if (topic.Tasks.Notes.Count < 1)
-                        //        Console.WriteLine("{0}. {1}", topic.Id, topic.Title.ToUpper());
-                        //}
-                        //Console.Write("\nYour selection: ");
-                        //try
-                        //{
-                        //    List<int> topicsWithoutTasks = (from topic in myTopics where topic.Tasks.Notes.Count() <= 0 select topic.Id).ToList();
-                        //    topicIndex = Convert.ToInt32(Console.ReadLine());
-                        //    if (topicsWithoutTasks.Contains(topicIndex))
-                        //    {
-                        //        myTopics[topicIndex - 1].Tasks = Diary.NewTask(myTopics[topicIndex - 1].Tasks.Notes.Count());
-                        //    }
-                        //}
-                        //catch (Exception e)
-                        //{
-                        //    Console.WriteLine(e.Message);
-                        //    break;
-                        //}
+                        Diary.NewTask();
                         break;
                     case 4:
                         Console.Clear();
