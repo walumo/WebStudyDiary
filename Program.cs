@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using WebStudyDiary.Models;
 
 namespace StudyDiary
 {
@@ -10,29 +11,34 @@ namespace StudyDiary
     {
         static void Main(string[] args)
         {
-            //db.GetSqlData();
-            //Console.ReadKey();
-
-            int option;
-            List<Topic> myTopics = new List<Topic>();
-
+            IQueryable<Topic> myTopics = null;
             try
             {
-                if (File.Exists(Environment.CurrentDirectory + @"\topics\topic.txt")) myTopics = Load.LoadAll();
+                myTopics = Load.GetTopics();
             }
             catch (Exception ex)
             {
-                Console.Write("Could not load file: " + ex.Message);
-                Console.ReadKey();
+                Console.WriteLine(ex.Message);
+                throw;
             }
+            
+            int option;
+
+            //List<Topic> myTopics = new List<Topic>();
+
+            //try
+            //{
+            //    if (File.Exists(Environment.CurrentDirectory + @"\topics\topic.txt")) myTopics = Load.LoadAll();
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.Write("Could not load file: " + ex.Message);
+            //    Console.ReadKey();
+            //}
 
             while (true)
             {
-                //update indexes after crud operations
-                foreach (Topic topic in myTopics)
-                {
-                    topic.Id = myTopics.IndexOf(topic) + 1;
-                }
+                
                 Console.Clear();
                 Console.BackgroundColor = ConsoleColor.DarkBlue;
                 Console.WriteLine("Study Diary v.1.0.0");
@@ -69,7 +75,7 @@ namespace StudyDiary
                 switch (option)
                 {
                     case 1:
-                        myTopics.Add(Diary.NewTopic(myTopics));
+                        //myTopics.Add(Diary.NewTopic(myTopics));
                         break;
                     case 2:
                         Diary.ShowTopics(myTopics);
@@ -82,45 +88,45 @@ namespace StudyDiary
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.WriteLine("---------");
                         Console.WriteLine("Choose a topic to add notes to: ");
-                        foreach (Topic topic in myTopics)
-                        {
-                            if (topic.Tasks.Notes.Count < 1)
-                                Console.WriteLine("{0}. {1}", topic.Id, topic.Title.ToUpper());
-                        }
-                        Console.Write("\nYour selection: ");
-                        try
-                        {
-                            List<int> topicsWithoutTasks = (from topic in myTopics where topic.Tasks.Notes.Count() <= 0 select topic.Id).ToList();
-                            topicIndex = Convert.ToInt32(Console.ReadLine());
-                            if (topicsWithoutTasks.Contains(topicIndex))
-                            {
-                                myTopics[topicIndex - 1].Tasks = Diary.NewTask(myTopics[topicIndex - 1].Tasks.Notes.Count());
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                            break;
-                        }
+                        //foreach (Topic topic in myTopics)
+                        //{
+                        //    if (topic.Tasks.Notes.Count < 1)
+                        //        Console.WriteLine("{0}. {1}", topic.Id, topic.Title.ToUpper());
+                        //}
+                        //Console.Write("\nYour selection: ");
+                        //try
+                        //{
+                        //    List<int> topicsWithoutTasks = (from topic in myTopics where topic.Tasks.Notes.Count() <= 0 select topic.Id).ToList();
+                        //    topicIndex = Convert.ToInt32(Console.ReadLine());
+                        //    if (topicsWithoutTasks.Contains(topicIndex))
+                        //    {
+                        //        myTopics[topicIndex - 1].Tasks = Diary.NewTask(myTopics[topicIndex - 1].Tasks.Notes.Count());
+                        //    }
+                        //}
+                        //catch (Exception e)
+                        //{
+                        //    Console.WriteLine(e.Message);
+                        //    break;
+                        //}
                         break;
                     case 4:
                         Console.Clear();
-                        Search.Topic(myTopics);
+                        //Search.Topic(myTopics);
                         break;
                     case 5:
-                        Delete.Topic(myTopics);
+                        //Delete.Topic(myTopics);
                         break;
                     case 6:
-                        Update.Topics(myTopics);
+                        //Update.Topics(myTopics);
                         break;
                     case 7:
-                        myTopics = Delete.CleanUp(myTopics);
+                        //myTopics = Delete.CleanUp(myTopics);
                         break;
                     case 8:
-                        Update.Tasks(myTopics);
+                        //Update.Tasks(myTopics);
                         break;
                     case 9:
-                        Save.SaveAll(myTopics);
+                        //Save.SaveAll(myTopics);
                         Environment.Exit(0);
                         break;
                 }
