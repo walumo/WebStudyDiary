@@ -38,7 +38,7 @@ namespace WebStudyDiary.Models
             {
                 entity.ToTable("Note");
 
-                entity.Property(e => e.Note1)
+                entity.Property(e => e.NoteString)
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("Note");
