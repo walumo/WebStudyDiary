@@ -224,7 +224,6 @@ namespace StudyDiary
         {
             Task taskToUpdate;
             List<string> commands;
-            bool commandsValid = false;
             using (StudyDiaryContext db = new StudyDiaryContext())
             {
                 while (true)
