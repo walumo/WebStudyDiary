@@ -62,13 +62,13 @@ namespace StudyDiary
                         Search.Topic();
                         break;
                     case 5:
-                        //Delete.Topic(myTopics);
+                        Delete.Topic();
                         break;
                     case 6:
                         //Update.Topics(myTopics);
                         break;
                     case 7:
-                        //myTopics = Delete.CleanUp(myTopics);
+                        Delete.CleanUp();
                         break;
                     case 8:
                         //Update.Tasks(myTopics);

@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebStudyDiary.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudyDiary
 {
     static class Delete
     {
-        public static List<Topic> Topic(List<Topic> list)
+        public static void Topic()
         {
+            IQueryable<Topic> topics;
             while (true)
             {
                 Console.Clear();
@@ -15,55 +18,98 @@ namespace StudyDiary
                 Console.WriteLine("DELETING:");
                 Console.BackgroundColor = ConsoleColor.Black;
 
-                foreach (Topic topic in list)
+                using (StudyDiaryContext db = new StudyDiaryContext())
                 {
-                    topic.Id = list.IndexOf(topic) + 1;
-                    Console.WriteLine(topic.Id + ". " + topic.Title.ToUpper());
+                    topics = db.Topics.Select(x => x);
+                    var tIndex = (from topic in topics select topic.TopicId).ToList();
+
+                    foreach (Topic topic in topics)
+                    {
+                        Console.WriteLine(topic.TopicId + ". " + topic.TopicTitle.ToUpper());
+                    }
+                    Console.Write("\nChoose topic to delete (blank to return, 'all' to delete all topics): ");
+                    string input = Console.ReadLine();
+
+                    if (string.Equals(input, "all", StringComparison.OrdinalIgnoreCase)) { Delete.All(); break; }
+
+                    if (String.IsNullOrWhiteSpace(input)) return;
+
+                    if (!String.IsNullOrWhiteSpace(input)
+                        && !int.TryParse(input, out int result)
+                        || !tIndex.Contains(Convert.ToInt32(input)))
+                    {
+                        Console.WriteLine("Invalid input!");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        var topicToDelete = db.Topics.Where(x => x.TopicId == Convert.ToInt32(input)).First();
+                        db.Entry(topicToDelete).State = EntityState.Deleted;
+                        DeleteTasks(topicToDelete.TopicId);
+                        db.SaveChanges();
+                    }
                 }
-                Console.Write("\nChoose topic to delete (blank to return, 'all' to delete all topics): ");
-                string input = Console.ReadLine();
+            }
+        }
 
-                if (string.Equals(input, "all", StringComparison.OrdinalIgnoreCase)) { Delete.All(list); return list; }
-
-                if (String.IsNullOrWhiteSpace(input)) return list;
-
-                if (!String.IsNullOrWhiteSpace(input)
-                    && !int.TryParse(input, out int result)
-                    || Convert.ToInt32(input) < 0
-                    || Convert.ToInt32(input) > list.Count())
+        private static void DeleteTasks(int topicIndex)
+        {
+            using (StudyDiaryContext db = new StudyDiaryContext())
+            {
+                var tasksToDelete = db.Tasks.Where(x => x.TopicId == topicIndex);
+                foreach (Task task in tasksToDelete)
                 {
-                    Console.WriteLine("Invalid input!");
+                    DeleteNotes(task.TaskId);
+                    db.Entry(task).State = EntityState.Deleted;
+                }
+                db.SaveChanges();
+            }
+        }
+        private static void DeleteNotes(int taskIndex)
+        {
+            using (StudyDiaryContext db = new StudyDiaryContext())
+            {
+                var notesToDelete = db.Notes.Where(x => x.TaskId == taskIndex);
+                foreach (Note note in notesToDelete)
+                {
+                    db.Entry(note).State = EntityState.Deleted;
+                }
+                db.SaveChanges();
+            }
+        }
+
+        public static void All()
+        {
+            using (StudyDiaryContext db = new StudyDiaryContext())
+            {
+                db.Topics.RemoveRange(db.Topics.Select(x => x));
+                db.SaveChanges();
+            }
+        }
+
+        public static void CleanUp()
+        {
+            using (StudyDiaryContext db = new StudyDiaryContext())
+            {
+                var topicsToClean =  db.Topics.Where(topic => topic.TopicCompletionDate.CompareTo(DateTime.Now) < 0);
+
+                if (topicsToClean.Count() < 1)
+                {
+                    Console.WriteLine("\nDid not find any topics with past deadlines.");
                     Console.ReadKey();
                 }
                 else
                 {
-                    list.Remove(list[Convert.ToInt32(input) - 1]);
+                    foreach (Topic topic in topicsToClean)
+                    {
+                        db.Entry(topic).State = EntityState.Deleted;
+                        DeleteTasks(topic.TopicId);
+                    }
+                db.SaveChanges();
+                Console.WriteLine($"\nDeleted {topicsToClean.Count()} topics with past deadline...");
+                Console.ReadKey();
                 }
             }
-        }
-
-        public static List<Topic> All(List<Topic> list)
-        {
-            list.Clear();
-            return list;
-        }
-
-        public static List<Topic> CleanUp(List<Topic> list)
-        {
-            var buffer = list.Where(topic => topic.CompletionDate.CompareTo(DateTime.Now) > 0);
-
-            if(list.Count()-buffer.Count() < 1)
-            {
-                Console.WriteLine("\nDid not find any topics with past deadlines.");
-                Console.ReadKey();
-            }
-            else
-            {
-                Console.WriteLine($"\nDeleted {list.Count()-buffer.Count()} topics with past deadline...");
-                Console.ReadKey();
-            }
-
-            return buffer.ToList();
         }
     }
 }
