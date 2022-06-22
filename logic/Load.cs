@@ -40,9 +40,9 @@ namespace StudyDiary
                         if (topic.TopicCompletionDate.CompareTo(DateTime.Now) < 0)
                         {
                             Console.Write("Time until completion: ");
-                            Console.BackgroundColor = ConsoleColor.DarkRed;
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
                             Console.WriteLine("PAST DEADLINE");
-                            Console.BackgroundColor = ConsoleColor.Black;
+                            Console.ForegroundColor = ConsoleColor.White;
                         }
                         else
                         {

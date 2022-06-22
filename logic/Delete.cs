@@ -105,8 +105,8 @@ namespace StudyDiary
                         db.Entry(topic).State = EntityState.Deleted;
                         DeleteTasks(topic.TopicId);
                     }
-                db.SaveChanges();
                 Console.WriteLine($"\nDeleted {topicsToClean.Count()} topics with past deadline...");
+                db.SaveChanges();
                 Console.ReadKey();
                 }
             }
