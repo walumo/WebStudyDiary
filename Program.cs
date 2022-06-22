@@ -65,7 +65,7 @@ namespace StudyDiary
                         Delete.Topic();
                         break;
                     case 6:
-                        //Update.Topics(myTopics);
+                        Update.Topics();
                         break;
                     case 7:
                         Delete.CleanUp();

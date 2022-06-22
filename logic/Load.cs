@@ -110,7 +110,7 @@ namespace StudyDiary
                         Console.WriteLine("\nSource(s) used: {0}\n", topic.TopicSource);
                     }
                 }
-                Console.Write("Press enter to continue...");
+                Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
             }
         }
@@ -163,7 +163,7 @@ namespace StudyDiary
                         Console.WriteLine("\nSource(s) used: {0}\n", topic.TopicSource);
                     }
                 }
-                Console.Write("Press enter to continue...");
+                Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
             }
         }
@@ -209,7 +209,57 @@ namespace StudyDiary
                 }
             }
         }
+        public static void Refresh(int index)
+        {
+            IQueryable<Topic> topicsFromDb = null;
+            using (StudyDiaryContext db = new StudyDiaryContext())
+            {
+                Console.WriteLine("Loading...");
+                topicsFromDb = db.Topics.Where(topic => topic.TopicId == index);
+
+                Console.Clear();
+                Console.BackgroundColor = ConsoleColor.DarkBlue;
+                Console.WriteLine("YOUR TOPICS:");
+                Console.BackgroundColor = ConsoleColor.Black;
+
+                if (topicsFromDb.ToList().Count() < 1) Console.WriteLine($"No topics found for ID: {index}\n");
+                else
+                {
+                    foreach (Topic topic in topicsFromDb)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("Topic number: {0}", topic.TopicId);
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("****************");
+                        Console.Write($"Topic: ");
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine(topic.TopicTitle.ToUpper());
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine($"To master (hours): {topic.TopicEstimatedTimeToMaster}");
+                        Console.WriteLine($"Date to be completed: {topic.TopicCompletionDate}");
+                        TimeSpan timeUntil = topic.TopicCompletionDate - DateTime.Now;
+                        if (topic.TopicCompletionDate.CompareTo(DateTime.Now) < 0)
+                        {
+                            Console.Write("Time until completion: ");
+                            Console.BackgroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine("PAST DEADLINE");
+                            Console.BackgroundColor = ConsoleColor.Black;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Time until completion: {0} days {1} hours", timeUntil.ToString("%d"), timeUntil.ToString(@"%h"));
+                        }
+                        Console.WriteLine("Hours spent: {0}", topic.TopicTimeSpent);
+                        Console.WriteLine("----------------");
+                        Console.WriteLine("Description: {0}\n", topic.TopicDescription);
+
+                        GetTasks(topic.TopicId);
+
+                        Console.WriteLine("\nSource(s) used: {0}\n", topic.TopicSource);
+                    }
+                }
+            }
+        }
     }
 }
-
 
