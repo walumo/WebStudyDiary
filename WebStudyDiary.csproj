@@ -17,7 +17,6 @@
   <ItemGroup>
     <Compile Remove="logic\Delete.cs" />
     <Compile Remove="logic\Save.cs" />
-    <Compile Remove="logic\Search.cs" />
     <Compile Remove="logic\Update.cs" />
     <Compile Remove="Task.cs" />
     <Compile Remove="Topic.cs" />

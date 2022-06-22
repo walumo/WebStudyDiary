@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using WebStudyDiary.Models;
 
 namespace StudyDiary
@@ -54,7 +56,7 @@ namespace StudyDiary
             IQueryable<Topic> topicsFromDb = null;
             using (StudyDiaryContext db = new StudyDiaryContext())
             {
-                Console.WriteLine("\nLoading...");
+                Console.WriteLine("Loading...");
                 topicsFromDb = db.Topics.Where(topic => topic.TopicId == index);
 
                 Console.Clear();
@@ -62,7 +64,7 @@ namespace StudyDiary
                 Console.WriteLine("YOUR TOPICS:");
                 Console.BackgroundColor = ConsoleColor.Black;
 
-                if (topicsFromDb.ToList().Count() < 1) Console.WriteLine("No topics in your list.\n");
+                if (topicsFromDb.ToList().Count() < 1) Console.WriteLine($"No topics found for ID: {index}\n");
                 else
                 {
                     foreach (Topic topic in topicsFromDb)
@@ -92,7 +94,49 @@ namespace StudyDiary
                 Console.ReadKey();
             }
         }
+        public static void GetTopics(string input)
+        {
+            List<Topic> topicsFromDb = null;
+            using (StudyDiaryContext db = new StudyDiaryContext())
+            {
+                Console.WriteLine("Loading...");
+                topicsFromDb = (from topic in db.Topics.AsEnumerable() where Regex.IsMatch(topic.TopicTitle, input, RegexOptions.IgnoreCase) select topic).ToList();
 
+                Console.Clear();
+                Console.BackgroundColor = ConsoleColor.DarkBlue;
+                Console.WriteLine("YOUR TOPICS:");
+                Console.BackgroundColor = ConsoleColor.Black;
+
+                if (topicsFromDb.Count() < 1) Console.WriteLine($"No topics found for: {input}");
+                else
+                {
+                    foreach (Topic topic in topicsFromDb)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("Topic number: {0}", topic.TopicId);
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("****************");
+                        Console.Write($"Topic: ");
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine(topic.TopicTitle.ToUpper());
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine($"To master (hours): {topic.TopicEstimatedTimeToMaster}");
+                        Console.WriteLine($"Date to be completed: {topic.TopicCompletionDate}");
+                        TimeSpan timeUntil = topic.TopicCompletionDate - DateTime.Now;
+                        Console.WriteLine("Time until completion: {0} days {1} hours", timeUntil.ToString("%d"), timeUntil.ToString(@"%h"));
+                        Console.WriteLine("Hours spent: {0}", topic.TopicTimeSpent);
+                        Console.WriteLine("----------------");
+                        Console.WriteLine("Description: {0}\n", topic.TopicDescription);
+
+                        GetTasks(topic.TopicId);
+
+                        Console.WriteLine("\nSource(s) used: {0}\n", topic.TopicSource);
+                    }
+                }
+                Console.Write("Press enter to continue...");
+                Console.ReadKey();
+            }
+        }
         private static void GetTasks(int index)
         {
             IQueryable<Task> tasksFromDb = null;
@@ -102,9 +146,10 @@ namespace StudyDiary
 
                 if (tasksFromDb.Count() > 0)
                 {
+                    Console.WriteLine("Tasks: \n");
+
                     foreach (Task task in tasksFromDb)
                     {
-                        Console.WriteLine("Tasks: \n");
                         Console.ForegroundColor = ConsoleColor.DarkCyan;
                         Console.Write(task.TaskTitle.ToUpper());
                         Console.WriteLine(" || Priority: {0}", task.TaskPriority);
@@ -136,3 +181,5 @@ namespace StudyDiary
         }
     }
 }
+
+

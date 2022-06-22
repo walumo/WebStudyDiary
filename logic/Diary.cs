@@ -209,7 +209,7 @@ namespace StudyDiary
                         Console.WriteLine(e.Message);
                         Console.WriteLine("Something went wrong, try again");
                         Console.ReadKey();
-                    } 
+                    }
                 }
             }
         }

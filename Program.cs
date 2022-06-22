@@ -47,8 +47,6 @@ namespace StudyDiary
                     continue;
                 }
 
-
-
                 switch (option)
                 {
                     case 1:
@@ -61,8 +59,7 @@ namespace StudyDiary
                         Diary.NewTask();
                         break;
                     case 4:
-                        Console.Clear();
-                        //Search.Topic(myTopics);
+                        Search.Topic();
                         break;
                     case 5:
                         //Delete.Topic(myTopics);
