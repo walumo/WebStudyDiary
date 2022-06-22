@@ -71,10 +71,9 @@ namespace StudyDiary
                         Delete.CleanUp();
                         break;
                     case 8:
-                        //Update.Tasks(myTopics);
+                        Update.Tasks();
                         break;
                     case 9:
-                        //Save.SaveAll(myTopics);
                         Environment.Exit(0);
                         break;
                 }
