@@ -182,7 +182,7 @@ namespace StudyDiary
                     List<int> tIndex = (from task in db.Tasks select task.TaskId).ToList();
                     if (String.IsNullOrWhiteSpace(input)) return;
 
-                    if ((input.Contains("remove") || input.Contains("update")) 
+                    if ((input.Contains("remove") || input.Contains("update"))
                         && input.Contains(" ")
                         && int.TryParse(input[7].ToString(),out int x1))
                     {
@@ -211,7 +211,7 @@ namespace StudyDiary
                         }
                         else if (commands[0] == "update")
                         {
-                            //updateTask!!
+                            UpdateTask(Convert.ToInt32(commands[1]));
                         }
 
                     }
@@ -220,6 +220,90 @@ namespace StudyDiary
             }
         }
 
+        private static void UpdateTask(int taskIndex)
+        {
+            Task taskToUpdate;
+            List<string> commands;
+            bool commandsValid = false;
+            using (StudyDiaryContext db = new StudyDiaryContext())
+            {
+                while (true)
+                {
+                    taskToUpdate = db.Tasks.Where(x => x.TaskId == taskIndex).First();
+                    RefreshTask(taskToUpdate);
+
+                    Console.Write(Environment.NewLine);
+                    Console.WriteLine("'title _newtitle_' to change title,");
+                    Console.WriteLine("'note _id_ _text_' to change note text by id");
+                    Console.WriteLine("Leave blank to return...\n");
+                    Console.Write("Enter commands: ");
+
+                    string command = Console.ReadLine().Trim();
+
+                    if (String.IsNullOrWhiteSpace(command)) break;
+                    if ((!command.Contains("title")
+                        || !command.Contains("note"))
+                        && !command.Contains(" "))
+                    {
+                        Console.WriteLine("Invalid command!");
+                        Console.ReadKey();
+                        continue;
+                    }
+                    else
+                    {
+                        commands = command.Split(' ').ToList();
+                        if(string.Equals(commands[0], "title", StringComparison.OrdinalIgnoreCase) || string.Equals(commands[0], "note", StringComparison.OrdinalIgnoreCase))
+                        {
+                            if(int.TryParse(commands[1], out int noteID))
+                            {
+                                string noteString = "";
+                                for (int i = 2; i < commands.Count(); i++)
+                                {
+                                    noteString += commands[i]+" ";
+                                }
+                                UpdateNoteText(Convert.ToInt32(commands[1]), noteString.Trim());
+                            }
+                            else
+                            {
+                                string titleString = "";
+                                for (int i = 1; i < commands.Count(); i++)
+                                {
+                                    titleString += commands[i] + " ";
+                                }
+                                taskToUpdate.TaskTitle = titleString.Trim();
+                                db.SaveChanges();
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid commands!");
+                            Console.ReadKey();
+                            continue;
+                        }
+                    }
+                }
+            }
+        }
+        private static void RefreshTask(Task task)
+        {
+            Console.Clear();
+            Console.BackgroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("UPDATING TASK {0}", task.TaskId);
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write(Environment.NewLine);
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.Write("Task title:");
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine(" {0}",task.TaskTitle.ToUpper());
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(Environment.NewLine);
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine("Task notes:");
+            Console.BackgroundColor = ConsoleColor.Black;
+            GetNotes(task.TaskId, true);
+
+        }
         private static void GetTasks(int index)
         {
             IQueryable<Task> tasksFromDb = null;
@@ -234,25 +318,36 @@ namespace StudyDiary
                         Console.ForegroundColor = ConsoleColor.DarkCyan;
                         Console.WriteLine("{0}. {1}", task.TaskId, task.TaskTitle.ToUpper());
                         Console.ForegroundColor = ConsoleColor.White;
-
-                        GetNotes(task.TaskId);
-
+                        GetNotes(task.TaskId, false);
                     }
                 }
             }
         }
-        private static void GetNotes(int index)
+        private static void GetNotes(int index,bool numbered)
         {
             IQueryable<Note> notesFromDb = null;
 
             using (StudyDiaryContext db = new StudyDiaryContext())
             {
-                notesFromDb = db.Notes.Where(note => note.TaskId == index);
+                notesFromDb = db.Notes.Where(note => note.TaskId == index).OrderBy(note => note.Id);
                 if (notesFromDb.Count() > 0)
                 {
-                    foreach (Note note in notesFromDb)
+                    if (numbered)
                     {
-                        Console.WriteLine("- {0}", note.Note1);
+                        foreach (Note note in notesFromDb)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkCyan;
+                            Console.Write($"ID: {note.Id} ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine($"{note.Note1}");
+                        } 
+                    }
+                    else
+                    {
+                        foreach (Note note in notesFromDb)
+                        {
+                            Console.WriteLine(" - {0}",note.Note1);
+                        }
                     }
                 }
             }
@@ -275,6 +370,22 @@ namespace StudyDiary
                 {
                     db.Entry(note).State = EntityState.Deleted;
                 }
+                db.SaveChanges();
+            }
+        }
+        private static void UpdateNoteText(int index, string noteText)
+        {
+            using (StudyDiaryContext db = new StudyDiaryContext())
+            {
+                List<int> nIndex = db.Notes.Select(x => x.Id).ToList();
+                if (!nIndex.Contains(index))
+                {
+                    Console.WriteLine("Invalid note ID!");
+                    Console.ReadKey();
+                    return;
+                }
+                Note noteToUpdate = db.Notes.Where(x => x.Id == index).First();
+                noteToUpdate.Note1 = noteText;
                 db.SaveChanges();
             }
         }

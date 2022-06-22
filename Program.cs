@@ -29,7 +29,7 @@ namespace StudyDiary
                 Console.WriteLine("6) Update topics");
                 Console.WriteLine("7) Clean expired topics");
                 Console.WriteLine("8) Manage tasks");
-                Console.WriteLine("9) Save & exit\n");
+                Console.WriteLine("9) Exit\n");
                 Console.Write("Your selection: ");
 
                 try
