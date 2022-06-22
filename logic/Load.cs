@@ -37,7 +37,17 @@ namespace StudyDiary
                         Console.WriteLine($"To master (hours): {topic.TopicEstimatedTimeToMaster}");
                         Console.WriteLine($"Date to be completed: {topic.TopicCompletionDate}");
                         TimeSpan timeUntil = topic.TopicCompletionDate - DateTime.Now;
-                        Console.WriteLine("Time until completion: {0} days {1} hours", timeUntil.ToString("%d"), timeUntil.ToString(@"%h"));
+                        if (topic.TopicCompletionDate.CompareTo(DateTime.Now) < 0)
+                        {
+                            Console.Write("Time until completion: ");
+                            Console.BackgroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine("PAST DEADLINE");
+                            Console.BackgroundColor = ConsoleColor.Black;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Time until completion: {0} days {1} hours", timeUntil.ToString("%d"), timeUntil.ToString(@"%h"));
+                        }
                         Console.WriteLine("Hours spent: {0}", topic.TopicTimeSpent);
                         Console.WriteLine("----------------");
                         Console.WriteLine("Description: {0}\n", topic.TopicDescription);
@@ -80,7 +90,17 @@ namespace StudyDiary
                         Console.WriteLine($"To master (hours): {topic.TopicEstimatedTimeToMaster}");
                         Console.WriteLine($"Date to be completed: {topic.TopicCompletionDate}");
                         TimeSpan timeUntil = topic.TopicCompletionDate - DateTime.Now;
-                        Console.WriteLine("Time until completion: {0} days {1} hours", timeUntil.ToString("%d"), timeUntil.ToString(@"%h"));
+                        if (topic.TopicCompletionDate.CompareTo(DateTime.Now) < 0)
+                        {
+                            Console.Write("Time until completion: ");
+                            Console.BackgroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine("PAST DEADLINE");
+                            Console.BackgroundColor = ConsoleColor.Black;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Time until completion: {0} days {1} hours", timeUntil.ToString("%d"), timeUntil.ToString(@"%h"));
+                        }
                         Console.WriteLine("Hours spent: {0}", topic.TopicTimeSpent);
                         Console.WriteLine("----------------");
                         Console.WriteLine("Description: {0}\n", topic.TopicDescription);
@@ -123,7 +143,17 @@ namespace StudyDiary
                         Console.WriteLine($"To master (hours): {topic.TopicEstimatedTimeToMaster}");
                         Console.WriteLine($"Date to be completed: {topic.TopicCompletionDate}");
                         TimeSpan timeUntil = topic.TopicCompletionDate - DateTime.Now;
-                        Console.WriteLine("Time until completion: {0} days {1} hours", timeUntil.ToString("%d"), timeUntil.ToString(@"%h"));
+                        if(topic.TopicCompletionDate.CompareTo(DateTime.Now) < 0)
+                        {
+                            Console.Write("Time until completion: ");
+                            Console.BackgroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine("PAST DEADLINE");
+                            Console.BackgroundColor = ConsoleColor.Black;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Time until completion: {0} days {1} hours", timeUntil.ToString("%d"), timeUntil.ToString(@"%h"));
+                        }
                         Console.WriteLine("Hours spent: {0}", topic.TopicTimeSpent);
                         Console.WriteLine("----------------");
                         Console.WriteLine("Description: {0}\n", topic.TopicDescription);
