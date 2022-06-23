@@ -22,7 +22,7 @@ namespace StudyDiary
                 {
                     Console.Clear();
                     Console.BackgroundColor = ConsoleColor.DarkBlue;
-                    Console.WriteLine("UPDATE:");
+                    Console.WriteLine("UPDATE:\n");
                     Console.BackgroundColor = ConsoleColor.Black;
 
                     foreach (Topic topic in topics)
@@ -33,8 +33,9 @@ namespace StudyDiary
 
                     input = Console.ReadLine();
 
-                    if (String.IsNullOrWhiteSpace(input)
-                        || !int.TryParse(input, out int res1)
+                    if (String.IsNullOrWhiteSpace(input)) return;
+
+                    if (!int.TryParse(input, out int res1)
                         || !tIndex.Contains(Convert.ToInt32(input)))
                     {
                         Console.WriteLine("Invalid input!");

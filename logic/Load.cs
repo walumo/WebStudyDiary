@@ -18,7 +18,7 @@ namespace StudyDiary
 
                 Console.Clear();
                 Console.BackgroundColor = ConsoleColor.DarkBlue;
-                Console.WriteLine("YOUR TOPICS:");
+                Console.WriteLine("YOUR TOPICS:\n");
                 Console.BackgroundColor = ConsoleColor.Black;
 
                 if (topicsFromDb.ToList().Count() < 1) Console.WriteLine("No topics in your list.\n");
@@ -71,7 +71,7 @@ namespace StudyDiary
 
                 Console.Clear();
                 Console.BackgroundColor = ConsoleColor.DarkBlue;
-                Console.WriteLine("YOUR TOPICS:");
+                Console.WriteLine("YOUR TOPICS:\n");
                 Console.BackgroundColor = ConsoleColor.Black;
 
                 if (topicsFromDb.ToList().Count() < 1) Console.WriteLine($"No topics found for ID: {index}\n");
@@ -124,7 +124,7 @@ namespace StudyDiary
 
                 Console.Clear();
                 Console.BackgroundColor = ConsoleColor.DarkBlue;
-                Console.WriteLine("YOUR TOPICS:");
+                Console.WriteLine("YOUR TOPICS:\n");
                 Console.BackgroundColor = ConsoleColor.Black;
 
                 if (topicsFromDb.Count() < 1) Console.WriteLine($"No topics found for: {input}");
@@ -204,7 +204,7 @@ namespace StudyDiary
                 {
                     foreach (Note note in notesFromDb)
                     {
-                        Console.WriteLine("- {0}", note.Note1);
+                        Console.WriteLine("  - {0}", note.Note1);
                     }
                 }
             }

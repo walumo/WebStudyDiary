@@ -15,7 +15,7 @@ namespace StudyDiary
             {
                 Console.Clear();
                 Console.BackgroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("DELETING:");
+                Console.WriteLine("DELETING:\n");
                 Console.BackgroundColor = ConsoleColor.Black;
 
                 using (StudyDiaryContext db = new StudyDiaryContext())
