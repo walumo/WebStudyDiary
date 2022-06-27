@@ -158,7 +158,7 @@ namespace StudyDiary
 
                     Console.Clear();
                     Console.BackgroundColor = ConsoleColor.DarkBlue;
-                    Console.WriteLine("SELECT TASK:");
+                    Console.WriteLine("SELECT TASK:\n");
                     Console.BackgroundColor = ConsoleColor.Black;
 
                     foreach (Topic topic in topics)
@@ -320,6 +320,12 @@ namespace StudyDiary
                         Console.ForegroundColor = ConsoleColor.White;
                         GetNotes(task.TaskId, false);
                     }
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("No tasks found..");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
