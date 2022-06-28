@@ -21,12 +21,9 @@ namespace StudyDiary
                 string input = Console.ReadLine();
                 Console.Clear();
 
-                using (StudyDiaryContext db = new StudyDiaryContext())
-                {
                     if (String.IsNullOrWhiteSpace(input)) break;
                     if (!String.IsNullOrWhiteSpace(input) && int.TryParse(input, out int result)) Load.GetTopics(result);
                     else if (!String.IsNullOrWhiteSpace(input)) Load.GetTopics(input);
-                } 
             }
         }
     }

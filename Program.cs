@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using WebStudyDiary.Models;
+using Utility;
 
 namespace StudyDiary
 {
@@ -12,6 +13,20 @@ namespace StudyDiary
         static void Main(string[] args)
         {
             int option;
+
+            while (true)
+            {
+                List<Topic> list = new List<Topic>();
+                using (StudyDiaryContext db = new StudyDiaryContext())
+                {
+                    list = db.Topics.Select(x => x).ToList();
+                    var results = Query.Search("ear", list);
+                    results.ForEach((x) => Console.WriteLine(x.TopicId + ". " + x.TopicTitle));
+                    
+                    Console.ReadKey();
+                    Environment.Exit(0);
+                }
+            }
 
             while (true)
             {
