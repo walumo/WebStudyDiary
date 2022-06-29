@@ -215,7 +215,7 @@ namespace StudyDiary
                         topicsFromDb.Remove(topicToRemove);
                     }
                 }
-                
+
                 if (input == "#late")
                 {
                     List<Topic> tIndex = new List<Topic>();
@@ -224,8 +224,8 @@ namespace StudyDiary
                     foreach (Topic topic in topicsFromDb)
                     {
                         if (!DateChecker.IsLate(
-                            DateTime.Now, 
-                            topic.TopicCompletionDate, 
+                            DateTime.Now,
+                            topic.TopicCompletionDate,
                             topic.TopicEstimatedTimeToMaster)
                             || topic.TopicCompletionDate.CompareTo(DateTime.Now) < 0)
                         {
@@ -236,6 +236,12 @@ namespace StudyDiary
                     {
                         topicsFromDb.Remove(topicToRemove);
                     }
+                }
+                else
+                {
+                    Console.WriteLine("\nInvalid smart search term!! use #next, #late or #past...");
+                    Console.ReadKey();
+                    return;
                 }
 
                 Console.Clear();
