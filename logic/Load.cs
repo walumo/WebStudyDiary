@@ -175,7 +175,7 @@ namespace StudyDiary
             using (StudyDiaryContext db = new StudyDiaryContext())
             {
                 Console.WriteLine("Loading...");
-                if(input == "#next")
+                if(string.Equals(input, "#next", StringComparison.OrdinalIgnoreCase))
                 {
                     int nextId = default;
                     TimeSpan tsBuffer = DateTime.Now - new DateTime();
@@ -198,7 +198,7 @@ namespace StudyDiary
                     }
                 }
 
-                else if (input == "#past")
+                else if (string.Equals(input, "#past", StringComparison.OrdinalIgnoreCase))
                 {
                     List<Topic> tIndex = new List<Topic>();
                     topicsFromDb = (from topic in db.Topics select topic).ToList();
@@ -216,7 +216,7 @@ namespace StudyDiary
                     }
                 }
 
-                else if (input == "#late")
+                else if (string.Equals(input, "#late", StringComparison.OrdinalIgnoreCase))
                 {
                     List<Topic> tIndex = new List<Topic>();
                     topicsFromDb = (from topic in db.Topics select topic).ToList();
