@@ -29,4 +29,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Utility">
+      <HintPath>..\DateChecker\bin\Release\netcoreapp3.1\Utility.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

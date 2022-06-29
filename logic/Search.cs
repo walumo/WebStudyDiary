@@ -24,7 +24,8 @@ namespace StudyDiary
                 using (StudyDiaryContext db = new StudyDiaryContext())
                 {
                     if (String.IsNullOrWhiteSpace(input)) break;
-                    if (!String.IsNullOrWhiteSpace(input) && int.TryParse(input, out int result)) Load.GetTopics(result);
+                    else if (input.StartsWith('#')) Load.SmartSearch(input);
+                    else if (!String.IsNullOrWhiteSpace(input) && int.TryParse(input, out int result)) Load.GetTopics(result);
                     else if (!String.IsNullOrWhiteSpace(input)) Load.GetTopics(input);
                 } 
             }
