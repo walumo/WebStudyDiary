@@ -198,7 +198,7 @@ namespace StudyDiary
                     }
                 }
 
-                if (input == "#past")
+                else if (input == "#past")
                 {
                     List<Topic> tIndex = new List<Topic>();
                     topicsFromDb = (from topic in db.Topics select topic).ToList();
@@ -216,7 +216,7 @@ namespace StudyDiary
                     }
                 }
 
-                if (input == "#late")
+                else if (input == "#late")
                 {
                     List<Topic> tIndex = new List<Topic>();
                     topicsFromDb = (from topic in db.Topics select topic).ToList();
