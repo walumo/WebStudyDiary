@@ -13,33 +13,6 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-    <script>
-        function toggleMenu(){
-            if(document.querySelector("#menu").style.visibility == "visible")
-                document.querySelector("#menu").style.visibility = "hidden";
-            else if(document.querySelector("#menu").style.visibility == "hidden")
-                document.querySelector("#menu").style.visibility = "visible";
-        }
-
-        function resetSearch(){
-            document.querySelector("#searchField").value = "";
-        }
-
-        function expandTopic(id){
-
-            var topicId = "#topic"+id+"details";
-
-            document.querySelector(topicId).style.height == "0px" ?
-            document.querySelector(topicId).style.height = "auto" :
-            document.querySelector(topicId).style.height = "0px";
-
-            document.querySelector(topicId).style.visibility == "hidden" ?
-            document.querySelector(topicId).style.visibility = "visible" :
-            document.querySelector(topicId).style.visibility = "hidden";
-            
-        }   
-    </script>
-
     <title>Web Sturydiary</title>
 
 </head>
@@ -102,11 +75,21 @@
                 <p>And here's some more!!</p>
             </div>
 
+            <div id="topic4" class="card" onclick="expandTopic(4)">
+                <h2>My topic</h2>
+                <p>my Topic description</p>
+            </div>
+
+            <div id="topic4details" class="cardDetails">
+                <h4>This is information</h4>
+                <p>And here's some more!!</p>
+            </div>
+
 
         </div>
 
     </div>
 
-
+<script src="script.js"></script>
 </body>
 </html>

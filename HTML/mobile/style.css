@@ -1,4 +1,4 @@
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 800px){
     body {
         font-family: 'Roboto', sans-serif;
         background-color: whitesmoke;
@@ -29,8 +29,8 @@
     }
 
     #menu {
-        border-left: 5px solid antiquewhite;
-        border-bottom: 5px solid antiquewhite;
+        border-left: 5px solid whitesmoke;
+        border-bottom: 5px solid whitesmoke;
         position: fixed;
         z-index: 1;
         justify-self: flex-end;
