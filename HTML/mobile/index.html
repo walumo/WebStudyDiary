@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <script>
+        function toggleMenu(){
+            if(document.querySelector("#menu").style.visibility == "visible")
+                document.querySelector("#menu").style.visibility = "hidden";
+            else if(document.querySelector("#menu").style.visibility == "hidden")
+                document.querySelector("#menu").style.visibility = "visible";
+        }
+
+        function resetSearch(){
+            document.querySelector("#searchField").value = "";
+        }
+
+        function expandTopic(id){
+
+            var topicId = "#topic"+id+"details";
+
+            document.querySelector(topicId).style.height == "0px" ?
+            document.querySelector(topicId).style.height = "auto" :
+            document.querySelector(topicId).style.height = "0px";
+
+            document.querySelector(topicId).style.visibility == "hidden" ?
+            document.querySelector(topicId).style.visibility = "visible" :
+            document.querySelector(topicId).style.visibility = "hidden";
+            
+        }   
+    </script>
+
+    <title>Web Sturydiary</title>
+
+</head>
+<body>
+    <div id="main" class="container">
+        <div id="menuHeader">
+            <div id="search">
+                <form method="GET" action="">
+                    <input id="searchField" name="searchTerm" type="text" placeholder="Search topics..">
+                    <button type="submit" onclick="resetSearch()"><i class="fa-solid fa-search"></i></button>
+                </form>
+            </div>
+            <div class="col-2">
+                <i onclick="toggleMenu()" class="shadow fa-solid fa-bars fa-xl"></i>
+            </div>
+        </div>
+        <div id="menu" style="visibility: hidden">
+
+        <div class="menuItems">
+            <a href="addtopic.html">add new topic</a>
+            <a href="#">manage topics</a>
+            <a href="#">add notes</a>
+            <a href="#">manage notes</a>
+            <a href="#">clean database</a>
+        </div>
+        </div>        
+        
+        <div id="topics">
+            <div id="topic1" class="card" onclick="expandTopic(1)">
+                <h2>My topic</h2>
+                <p>my Topic description</p>
+            </div>
+
+            <div id="topic1details" class="cardDetails">
+                <h4>This is information</h4>
+                <p>And here's some more!!</p>
+                <p>And here's some more!!</p>
+            </div>
+
+            <div id="topic2" class="card" onclick="expandTopic(2)">
+                <h2>My topic</h2>
+                <p>my Topic description</p>
+            </div>
+
+            <div id="topic2details" class="cardDetails">
+                <h4>This is information</h4>
+                <p>And here's some more!!</p>
+                <p>And here's some more!!</p>
+                <p>And here's some more!!</p>
+                <p>And here's some more!!</p>
+            </div>
+
+            <div id="topic3" class="card" onclick="expandTopic(3)">
+                <h2>My topic</h2>
+                <p>my Topic description</p>
+            </div>
+
+            <div id="topic3details" class="cardDetails">
+                <h4>This is information</h4>
+                <p>And here's some more!!</p>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</body>
+</html>

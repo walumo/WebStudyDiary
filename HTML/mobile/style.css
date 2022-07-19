@@ -1,0 +1,131 @@
+@media only screen and (max-width: 600px){
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: whitesmoke;
+    }
+
+    #main{
+        background-color:white;
+        margin: auto;
+        width: auto;
+        height: 100vh;
+    }
+
+    #menuHeader {
+        z-index: 1;
+        position: fixed;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin: auto;
+        padding-left: 5vw;
+        padding-right: 5vw;
+        width: 86vw;
+        height: 23vw;
+        background-image: linear-gradient(66deg, rgb(39, 17, 99), royalblue);
+
+        /* background-color: royalblue;*/
+    }
+
+    #menu {
+        border-left: 5px solid antiquewhite;
+        border-bottom: 5px solid antiquewhite;
+        position: fixed;
+        z-index: 1;
+        justify-self: flex-end;
+        display: flex;
+        flex-direction: column;
+        justify-content:left;
+        align-items: flex-end;
+        margin: auto;
+        top: 25vw;
+        right: 2VW;
+        padding-left: 5vw;
+        padding-right: 5vw;
+        padding-bottom: 10vw;
+        height: auto;
+        width: 55VW;
+        text-shadow: 2px 2px 2px black;
+        background-image: linear-gradient(45deg, rgb(39, 17, 99), royalblue);
+        border-bottom-left-radius: 40%;
+    }
+
+    .shadow {
+        color:blanchedalmond;
+        text-shadow: 2px 2px 2px black;
+    }
+
+    .menuItems a, li {
+        display: block;
+        font-size: xx-large;
+        color: whitesmoke;
+        text-decoration: none;
+        font-variant: small-caps;
+        list-style-type: none;
+    }
+
+    #search{
+        display: inline;
+    }
+
+    #search button {
+        color: whitesmoke;
+        border: none;
+        text-shadow: 2px 2px 2px black;
+        background-color: royalblue;
+        width: 10vw;
+    }
+
+    #topics{
+        position: absolute;
+        top: 25vw;
+        width: 96vw;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card {
+        border-radius: 2%;
+        margin-top: 2px;
+        background-color: green;
+        color: whitesmoke;
+        width: 86vw;
+        padding: 5vw;
+        background-image: linear-gradient(98deg, rgb(34, 66, 102), royalblue);
+    }
+
+    .cardDetails{
+        border-left: 5px solid burlywood;
+        border-right: 5px solid burlywood;
+        border-bottom: 1px solid burlywood;
+        margin: auto;
+        width: 88vw;
+        background-color: linen;
+        height: 0px;
+        visibility: hidden;
+    }
+    .cardDetails p, h4 {
+        padding-left: 1.2em;
+        padding-right: 1.2em;
+        
+    }
+
+    .addtopic input, select, textarea {
+        text-align: center;
+        margin-bottom: 2vw;
+        width: 85vw;
+    }
+    .addtopic form{
+        text-align: center;
+    }
+    .addtopic button {
+        width: 60vw;
+        margin-top: 20px;
+        text-shadow: 2px 2px 2px black;
+        box-shadow: 2px 2px 2px black;
+        border: none;
+        color: whitesmoke;
+        background-color: royalblue
+    }
+}
